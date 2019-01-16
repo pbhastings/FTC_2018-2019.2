@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+  package="org.firstinspires.ftc.teamcode"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <application/>
+</manifest>
+<!--
+<application>
+  <component name="ActionsCollector">
+    <counts>
+      <entry action="$Delete" count="2" />
+      <entry action="$Paste" count="1" />
+      <entry action="$Redo" count="3" />
+      <entry action="$SelectAll" count="31" />
+      <entry action="$Undo" count="84" />
+      <entry action="Android.RunAndroidSdkManager" count="2" />
+      <entry action="DialogOkAction Enter" count="9" />
+      <entry action="EditorBackSpace" count="1255" />
+      <entry action="EditorChooseLookupItemReplace" count="140" />
+      <entry actio
+      -->
+
