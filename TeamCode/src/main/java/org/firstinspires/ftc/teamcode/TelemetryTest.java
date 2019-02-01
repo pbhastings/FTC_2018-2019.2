@@ -73,30 +73,6 @@ public class TelemetryTest extends OpMode
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        //leftDrive  = hardwareMap.dcMotor.get("left_drive");
-        //rightDrive = hardwareMap.dcMotor.get("right_drive");
-        //frontRightDrive = hardwareMap.dcMotor.get("frontRightDrive");
-        //frontLeftDrive  = hardwareMap.dcMotor.get("frontLeftDrive");
-        //backRightDrive  = hardwareMap.dcMotor.get("backRightDrive");
-        //backLeftDrive   = hardwareMap.dcMotor.get("backLeftDrive");
-
-        //rightPillar = hardwareMap.dcMotor.get("rightLift");
-        //leftPillar  = hardwareMap.dcMotor.get("leftLift");
-
-        //rightPillar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //rightPillar.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //leftPillar.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        //leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        //rightDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
     }
 
     /*
@@ -104,6 +80,8 @@ public class TelemetryTest extends OpMode
      */
     @Override
     public void init_loop() {
+
+
     }
 
     /*
@@ -120,91 +98,64 @@ public class TelemetryTest extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        //double leftPower;
-        //double rightPower;
 
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-        //double drive = -gamepad1.left_stick_y;
-        //double turn  =  gamepad1.right_stick_x;
-        //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
-
-        // Send calculated power to wheels
-        //leftDrive.setPower(leftPower);
-        //rightDrive.setPower(rightPower);
-
-        // Show the elapsed game time and wheel power.
-        //telemetry.addData("Status", "Run Time: " + runtime.toString());
-        //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-
-        //find magnitude and direction of left game pad
-        //boolean slowToggle = false;
-
-        //if (gamepad1.right_trigger>0.2){
-        //slowToggle = true;
-        //}
-        /*
-        double leftStickMagnitude = Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y*gamepad1.left_stick_y);
-        double rightStickMagnitude = Math.sqrt(gamepad1.right_stick_x*gamepad1.right_stick_x + gamepad1.right_stick_y*gamepad1.right_stick_y);
-        double maxMagnitude = Math.max(leftStickMagnitude, rightStickMagnitude);
-        double leftStickAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x);
-        double rotation = gamepad1.right_stick_x/2;
-
-        if(leftStickAngle<0){
-            leftStickAngle = 2*Math.PI + leftStickAngle;
+        // slowToggle update
+        boolean slowToggle;
+        if(gamepad1.right_trigger> 0.3f) {
+            slowToggle = true;
         }
-        double frontRight = leftStickMagnitude*(Math.cos((Math.PI*3/4)-leftStickAngle)) + rotation;
-        double  frontLeft = Math.cos((Math.PI*5/4)-leftStickAngle) + rotation;
-        double  backRight = Math.cos((Math.PI*7/4)-leftStickAngle) + rotation;
-        double   backLeft = Math.cos((Math.PI/4)-leftStickAngle) + rotation;
-
-        double maxMotorPower = 1;
-        if(Math.abs(frontRight)>maxMotorPower)
-            maxMotorPower=Math.abs(frontRight);
-        if(Math.abs(frontLeft)>maxMotorPower)
-            maxMotorPower=Math.abs(frontLeft);
-        if(Math.abs(backRight)>maxMotorPower)
-            maxMotorPower=Math.abs(backRight);
-        if(Math.abs(backLeft)>maxMotorPower)
-            maxMotorPower=Math.abs(backLeft);
-        if(maxMotorPower>1){
-            frontRight = (frontRight/maxMotorPower);
-            frontLeft  = (frontLeft/maxMotorPower);
-            backRight  = (backRight/maxMotorPower);
-            backLeft   = (backLeft/maxMotorPower);
+        else {
+            slowToggle = false;
         }
-        if(slowToggle){
-            frontRight*=0.35;
-            frontLeft*=0.35;
-            backRight*=0.35;
-            backLeft*=0.35;
+        telemetry.addData("slowToggle", slowToggle);
+
+        //the next two if statements are for the inner platform lifting
+        if(gamepad1.left_trigger > 0.3f) {
+            telemetry.addData("platformLift", "moving down");
         }
-        //set power of motors
-        frontRightDrive.setPower(frontRight);
-        frontLeftDrive.setPower(frontLeft);
-        backRightDrive.setPower(backRight);
-        backLeftDrive.setPower(backLeft);
-        */
+        else if(gamepad1.left_bumper) {
+            telemetry.addData("platformLift","moving up                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ");
+        }
+        else {
+            telemetry.addData("platformLift", "null");
+        }
 
-        //if (gamepad1.a && rightPillar.getCurrentPosition()<500)
-        //    rightPillar.setPower(0.25);
-        //else if(gamepad1.x)
-        //    rightPillar.setPower(-0.25);
-        //else
-        //    rightPillar.setPower(0);
-        //leftPillar.setPower(verticalPower*-1);
+        //hook motor
+        if(gamepad1.dpad_up) {
+            telemetry.addData("hook", "moving up");
+        }
+        else if(gamepad1.dpad_down) {
+            telemetry.addData("hook", "moving down");
+        }
+        else {
+            telemetry.addData("hook", "null");
+        }
 
-        telemetry.addData("log", "test");
+        //movement motors
+
+        //left side
+        if(gamepad1.left_stick_y < 0) {
+            telemetry.addData("leftSideDrive", "forward");
+        }
+        else if (gamepad1.left_stick_y > 0) {
+            telemetry.addData("leftSideDrive", "backward");
+        }
+        else {
+            telemetry.addData("leftSideDrive", "null");
+        }
+
+        //right side
+        if(gamepad1.right_stick_y < 0) {
+            telemetry.addData("rightSideDrive", "forward");
+        }
+        else if(gamepad1.right_stick_y > 0) {
+            telemetry.addData("rightSideDrive", "backward");
+        }
+        else {
+            telemetry.addData("rightSideDrive", "null");
+        }
+
+        //telemetry.addData("log", "test");
     }
 
     /*
